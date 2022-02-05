@@ -2,21 +2,36 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, set up the certificate needed for our server to use HTTPS:
 
 ```bash
-npm run dev
-# or
-yarn dev
+cd ~
+npm i mkcert
+mkcert create-ca
+mkcert create-cert
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will create a Certificate Authority and certificate that your browser will
+trust to use HTTPS. The default settings are sufficient for localhost. On Windows, you can
+double-click on the .cert file for the ca (`ca.crt`) and certificate(`cert.crt`). This will open
+up the Certificate Manager and will tell you these certificates can't be verified. Click the button
+to install the certificates and browse for the Trusted Certificate Authority folder to install them to.
+Now your browser will trust sites signed with this certificate from this CA. Reboot your computer to complete it.
+In server.js, you will need to change the paths for the certificate and its key to the ones on your local
+machine. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+_TODO: Change this to an env variable so we don't have to alter the file._
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Next, try running the server to see if it worked properly. 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+npm start
+```
+
+You need to run this instead of `npm run dev` because it accesses the `server.js` file that allows us to serve our website at `https://localhost:80`
+instead of `http://localhost:80` so that our embedded Twitch streams work properly.
+
+Open [https://localhost:80](http://localhost:800) with your browser to see the result.
 
 ## Learn More
 

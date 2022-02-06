@@ -23,7 +23,7 @@ export default function Home() {
                     h1
                     size={60}
                     css={{
-                        textGradient: '45deg, $yellow200 -20%, $yellow600 50%'
+                        textGradient: '45deg, $yellow500 0%, $yellow200 30%'
                     }}
                     weight="bold"
                 >
